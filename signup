@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up - Academic Analytics</title>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <p><strong>Enter an email and password to create an account</strong></p>
+
+  <form id="signup-form">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required autocomplete="email" />
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        required
+        minlength="6"
+        autocomplete="new-password"
+      />
+    </div>
+
+    <button type="submit">Sign Up</button>
+    <p id="message" role="status">Loading sign-up form…</p>
+
+<script type="module">
+  import { createClient } from
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+  const message = document.getElementById('message')
+  const form = document.getElementById('signup-form')
+
+  try {
+    const supabase = createClient(
+      'https://atmhpskfuhzppmikkgdt.supabase.co',
+      'sb_publishable__MZ7CQH18Mghyb1L8uhz7A_Fhy80aEV'
+    )
+
+    message.textContent = 'Ready to create an account.'
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      message.textContent = 'Creating account…'
+
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      const { error } = await supabase.auth.signUp({ email, password })
+
+      if (error) {
+        message.textContent = `Error: ${error.message}`
+        return
+      }
+
+      form.reset()
+      message.textContent =
+        'Account created. Check your email for the confirmation link.'
+    })
+  } catch (error) {
+    message.textContent = `Setup error: ${error.message}`
+  }
+</script>
+</body>
+</html>

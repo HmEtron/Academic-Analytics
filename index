@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home - Academic Analytics</title>
+    </head>
+    <body>
+        <h1>Academic Analytics</h1>
+        <p><strong><em>Your grade analyser to help you identify weak areas, trends and much more</em></strong></p>
+
+        <button id="get-started" type="button">GET STARTED</button>
+
+        <script>
+            // 1. Find the button in your HTML
+            const signUpButton = document.getElementById('get-started');
+
+            // 2. Listen for the user to click it
+            signUpButton.addEventListener('click', function() {
+                // 3. Change this to the file name or URL of your next page
+                window.location.href = 'signup'; 
+            });
+        </script>
+    </body>
+</html>
